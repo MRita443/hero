@@ -1,5 +1,4 @@
 import com.googlecode.lanterna.TerminalSize;
-import com.googlecode.lanterna.TextCharacter;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
 import com.googlecode.lanterna.screen.Screen;
@@ -39,10 +38,10 @@ public class Game {
     private void processKey(KeyStroke key) throws IOException {
         System.out.println(key);
         switch (key.getKeyType()) {
-            case ArrowUp -> hero.moveUp();
-            case ArrowDown -> hero.moveDown();
-            case ArrowRight -> hero.moveRight();
-            case ArrowLeft -> hero.moveLeft();
+            case ArrowUp -> moveHero(hero.moveUp());
+            case ArrowDown -> moveHero(hero.moveDown());
+            case ArrowRight -> moveHero(hero.moveRight());
+            case ArrowLeft -> moveHero(hero.moveLeft());
             case Character -> {
                 if (key.getCharacter() == 'q') {
                     screen.close();
@@ -50,7 +49,9 @@ public class Game {
             }
         }
     }
-
+    private void moveHero(Position position) {
+        hero.setPosition(position);
+    }
     public void run() {
         try {
             while (true) {
